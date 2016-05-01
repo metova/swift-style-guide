@@ -1,10 +1,9 @@
 disabled_rules: # rule identifiers to exclude from running
-  - todo
+  - todo # We handle this with a separate build phase in our projects
   - line_length
-  - valid_docs
+  - valid_docs # We don't disable this rule for our libraries
   - trailing_whitespace
-  - statement_position
-  - opening_brace
+  - statement_position # This rule disagrees with our style.  We are working on adding a custom rule into SwiftLint to enforce our preferred style.
 opt_in_rules: # some rules are only opt-in
   - empty_count
   - force_unwrapping
