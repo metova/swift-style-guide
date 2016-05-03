@@ -24,8 +24,6 @@ This style guide is written primarily with the development of iOS and OS X appli
 * [Swiftlint](#swiftlint)
 * [Credits](#credits)
 
----
-
 ## General
 
 ### Whitespace
@@ -38,17 +36,21 @@ Calls to `super` should be followed by an empty line.
 
 The closing brace for `guard` statements should be followed by an empty line.
 
+---
+
 ### Braces
 
 Opening braces should be placed consistently throughout the code base.  Some developers prefer their braces on the same line while others prefer new line braces.  What's important is that the entire code base is consistent.
 
 Closing braces should always be on a new line by themselves, horizontally aligned with the left edge of the opening brace it is closing.
 
+---
+
 ### Control Flow
 
-Omit unnecessary parenthesis around control flow statements.
+#####Omit unnecessary parenthesis around control flow statements.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 while someCondition {
@@ -56,7 +58,7 @@ while someCondition {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 while (someCondition) {
@@ -66,10 +68,11 @@ while (someCondition) {
 
 *Rationale: With braces required around bodies, the conditional part is perfectly clear without parenthesis and reads better.*
 
+---
 
-Prefer to `return` and `break` early.   
+#####Prefer to `return` and `break` early.   
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 guard shouldDoTheThing else {
@@ -79,7 +82,7 @@ guard shouldDoTheThing else {
 // Do the thing.
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if shouldDoTheThing {
@@ -92,9 +95,11 @@ else {
 
 *Rationale: This eliminates unnecessary nesting and makes the exit conditions clear up front.*
 
-When using an early `return` or `break`, prefer `guard` to `if` statements.
+---
 
-**Preferred:**
+#####When using an early `return` or `break`, prefer `guard` to `if` statements.
+
+*Preferred:*
 
 ```swift
 guard shouldDoTheThing else {
@@ -102,7 +107,7 @@ guard shouldDoTheThing else {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if !shouldDoTheThing {
@@ -112,9 +117,11 @@ if !shouldDoTheThing {
 
 *Rationale: The `guard` statement guarantees the early exit.  If the scope isn't exited, it will generate compile-time errors.  It is also easier for readers to identify as an early exit.*
 
-Use `where` to eliminate layers of nesting.
+---
 
-**Preferred:**
+#####Use `where` to eliminate layers of nesting.
+
+*Preferred:*
 
 ```swift
 if let someInt = optionalInt where someInt % 2 == 0 {
@@ -122,7 +129,7 @@ if let someInt = optionalInt where someInt % 2 == 0 {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if let someInt = optionalInt {
@@ -134,9 +141,11 @@ if let someInt = optionalInt {
 
 *Rationale: As levels of nesting increases, the readability of the code decreases.*
 
-Prefer using a `switch` statement over `else if` chains when dealing with enumerations.  
+---
 
-**Preferred:**
+#####Prefer using a `switch` statement over `else if` chains when dealing with enumerations.  
+
+*Preferred:*
 
 ```swift
 switch someValue {
@@ -147,7 +156,7 @@ case .Bar:
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if someValue == MyEnum.Foo {
@@ -160,9 +169,11 @@ else if someValue == MyEnum.Bar {
 
 *Rationale: With a `switch` statement, we can more clearly distinguish whether all cases are handled.  It is also more compact.*
 
-Prefer switching on tuples than unnecessary levels of nesting.
+---
 
-**Preferred:**
+#####Prefer switching on tuples than unnecessary levels of nesting.
+
+*Preferred:*
 
 ```swift
 switch (someValue, direction) {
@@ -177,7 +188,7 @@ case (.Bar, .Right):
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 switch someValue {
@@ -197,9 +208,11 @@ case .Bar:
 
 *Rationale: Switching on a tuple makes all of the possible conditions more clear from the start.  It also becomes more compact and removes unnecessary levels of nesting.*
 
-Prefer starting `else` and `catch`  statements on a new line, under the closing brace for the previous statement.
+---
 
-**Preferred:**
+#####Prefer starting `else` and `catch`  statements on a new line, under the closing brace for the previous statement.
+
+*Preferred:*
 
 ```swift
 do {
@@ -210,7 +223,7 @@ catch let error {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 do {
@@ -226,11 +239,13 @@ do {
 
 ![Cuddled](images/cuddled.png)
 
+---
+
 ### Loops
 
-Prefer `for`-`in` loops to `forEach` in most circumstances.
+#####Prefer `for`-`in` loops to `forEach` in most circumstances.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 for thing in things {
@@ -238,7 +253,7 @@ for thing in things {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 things.forEach { thing in
@@ -248,9 +263,11 @@ things.forEach { thing in
 
 *Rationale: The preferred style reads more naturally.*
 
-When dealing with optional collections, prefer `forEach` to unwrapping.
+---
 
-**Preferred:**
+#####When dealing with optional collections, prefer `forEach` to unwrapping.
+
+*Preferred:*
 
 ```swift
 things?.forEach {
@@ -258,7 +275,7 @@ things?.forEach {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if let things = things {
@@ -270,14 +287,16 @@ if let things = things {
 
 *Rationale: While the `for`-`in` loop reads more naturally, using `forEach` to prevent unnecessary levels of nesting helps keep the overall code more readable.*
 
-When the loop body is nothing but passing each item in the loop into a closure, function, or method, prefer `forEach`.
+---
 
-**Preferred:**
+#####When the loop body is nothing but passing each item in the loop into a closure, function, or method, prefer `forEach`.
+
+*Preferred:*
 
 ```swift
 things.forEach(handleTheThing)
 ```
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 for thing in things {
@@ -287,9 +306,11 @@ for thing in things {
 
 *Rationale: This is more compact, and passing closure arguments into to methods that expect closures should feel perfectly natural in Swift.*
 
-Prefer iterating over an array slice to any other sort of logic to deal with a specific section of an array.
+---
 
-**Preferred:**
+#####Prefer iterating over an array slice to any other sort of logic to deal with a specific section of an array.
+
+*Preferred:*
 
 ```swift
 for thing in things[first...last] {
@@ -298,7 +319,7 @@ for thing in things[first...last] {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 for index in first.stride(through: last, by: 1)
@@ -310,9 +331,11 @@ for index in first.stride(through: last, by: 1)
 
 *Rationale: In almost all cases, iterating over the array slice will be both more compact source code and more efficient.*
 
-Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerate()` method.
+---
 
-**Preferred:**
+#####Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerate()` method.
+
+*Preferred:*
 
 ```swift
 for (index, thing) in things.enumerate() {
@@ -320,15 +343,13 @@ for (index, thing) in things.enumerate() {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 for index in 0..<things.count {
     print("Found \(things[index]) at index \(index)")
 }
 ```
-
----
 
 ## Classes and Structures
 
@@ -342,11 +363,11 @@ However, we should be careful not to default to choosing classes for this reason
 
 A good rule of thumb is to default to structs, but fallback onto classes when structs become too large or when you need a feature of classes that structs do not afford, such as multiple references to the same object.  And keep in mind with protocols & protocol extensions, we can deal with a lot of inheritance things even with structs.
 
-### Avoid Explicit Use of Self
+---
 
-Avoid explicit use of `self` except where required.
+#####Avoid explicit use of `self` except where required.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 func setUpUI() {
@@ -354,7 +375,7 @@ func setUpUI() {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 func setUpUI() {
@@ -364,9 +385,11 @@ func setUpUI() {
 
 *Rationale: Omitting `self` allows for more concise code.  Only use it when a local variable has hidden an instance variable or in escaping closures.*
 
-When possible, use the `@noescape` attribute.
+---
 
-**Preferred:**
+#####When possible, use the `@noescape` attribute.
+
+*Preferred:*
 
 ```swift
 func runTheClosureTenTimes(@noescape closure:() -> Void) {
@@ -376,7 +399,7 @@ func runTheClosureTenTimes(@noescape closure:() -> Void) {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 func runTheClosureTenTimes(closure:() -> Void) {
@@ -388,13 +411,11 @@ func runTheClosureTenTimes(closure:() -> Void) {
 
 *Rationale: By using the `@noescape` attribute on closure arguments, you prevent explicit `self` from being required.*
 
----
-
 ## Closures
 
-When calling a method with a single closure as the last argument, leave it outside the parenthesis.
+#####When calling a method with a single closure as the last argument, leave it outside the parenthesis.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 UIView.animateWithDuration(animationDuration) {
@@ -402,7 +423,7 @@ UIView.animateWithDuration(animationDuration) {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 UIView.animateWithDuration(animationDuration, {
@@ -412,9 +433,11 @@ UIView.animateWithDuration(animationDuration, {
 
 *Rationale: By leaving the closure out of the parenthesis, it makes the code cleaner.  This style also allows the creation of functions that look & feel like extensions of the Swift language itself.*
 
-When calling a method with multiple closure arguments, include all of the closures within the parenthesis.
+---
 
-**Preferred:**
+#####When calling a method with multiple closure arguments, include all of the closures within the parenthesis.
+
+*Preferred:*
 
 ```swift
 UIView.animateWithDuration(animationDuration, animations: {
@@ -426,7 +449,7 @@ UIView.animateWithDuration(animationDuration, animations: {
 )
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 UIView.animateWithDuration(animationDuration, animations: {
@@ -438,15 +461,17 @@ UIView.animateWithDuration(animationDuration, animations: {
 
 *Rationale: The `}) {` syntax can be very confusing, and this makes the code slightly less readable compared to passing both closures in with their named arguments.  In general, we should simply prefer to avoid functions that take multiple closures, where possible.*
 
-For single expression arguments, use implicit returns if the context is clear.
+---
 
-**Preferred:**
+#####For single expression arguments, use implicit returns if the context is clear.
+
+*Preferred:*
 
 ```swift
 let filteredRestaurants = restaurants.filter { $0.id == searchID }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 let filteredRestaurants = restaurants.filter { restaurant in
@@ -456,13 +481,11 @@ let filteredRestaurants = restaurants.filter { restaurant in
 
 *Rationale: When the context is clear, the implicit return allows more compact code without sacrificing any readability.*
 
----
-
 ## Types
 
-Let Swift implicitly decide which type to use except when you require a type different from Swift's default inference.
+#####Let Swift implicitly decide which type to use except when you require a type different from Swift's default inference.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 let count = 100
@@ -470,7 +493,7 @@ let width: CGFloat = 80.0
 let name = person.name
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 let count: Int = 100
@@ -480,15 +503,17 @@ let name: String = person.name
 
 *Rationale: Swift type inference system is well documented.  Adding types where unnecessary adds clutter to the source code.*
 
-Prefer Swift native types to Objective-C's types.
+---
 
-**Preferred:**
+#####Prefer Swift native types to Objective-C's types.
+
+*Preferred:*
 
 ```swift
 var people = [Person]()
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 var people = NSMutableArray()
@@ -496,17 +521,19 @@ var people = NSMutableArray()
 
 *Rationale: In the case of collections, preferring Swift-native types allows for more type-safety, one of the biggest advantages Swift has over Objective-C.  In the case of other types, Swift is optimized for its native types.  Almost (if not all) of the behavior is bridged across both types, and whenever you absolutely must have the Objective-C type, you can freely cast into it.*
 
+---
+
 ### Constants
 
-Prefer constants to variables.  Use `let` as your default declaration keyword, and only change to `var` when you know the value of a variable will change.
+#####Prefer constants to variables.  Use `let` as your default declaration keyword, and only change to `var` when you know the value of a variable will change.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 let minimumPasswordLength: Int
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 var minimumPasswordLength: Int
@@ -514,17 +541,19 @@ var minimumPasswordLength: Int
 
 *Rationale: Using `let` for variables which should not change can prevent bugs and keep the code's intent more clear.*
 
+---
+
 ### Optionals
 
-Avoid implicitly unwrapped optionals.
+#####Avoid implicitly unwrapped optionals.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 var profilePicture: UIImage?
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 var profilePicture: UIImage!
@@ -532,9 +561,11 @@ var profilePicture: UIImage!
 
 *Rationale: Implicitly unwrapped optionals can lead to [all sorts of problems](https://metova.com/blog/dev/problem-implicitly-unwrapped-optionals/) and crashes.  A little bit of extra unwrapping code is worth knowing that you won't see crashes from unwrapping `nil`.*
 
-Do not force unwrap optionals.  If crashing *is* the correct behavior when the optional is `nil`, prefer a `fatalError` with a message.
+---
 
-**Preferred:**
+#####Do not force unwrap optionals.  If crashing *is* the correct behavior when the optional is `nil`, prefer a `fatalError` with a message.
+
+*Preferred:*
 
 ```swift
 guard let unwrapped = someOptional else {
@@ -542,7 +573,7 @@ guard let unwrapped = someOptional else {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 let unwrapped = someOptional!
@@ -550,9 +581,11 @@ let unwrapped = someOptional!
 
 *Rationale: An extra line of code here can save plenty of headaches when debugging.*
 
-If a value should never be `nil`, prefer a non-optional.
+---
 
-**Preferred:**
+#####If a value should never be `nil`, prefer a non-optional.
+
+*Preferred:*
 
 ```swift
 class Person {
@@ -560,7 +593,7 @@ class Person {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 class Person {
@@ -571,9 +604,11 @@ class Person {
 
 *Rationale: Using optionals for values that really never should be `nil` makes code unclear.  It can lead to bugs or crashes, and it makes it harder for other devs to understand your code.  Also, using optionals has an added unwrapping overhead.  Using optionals for values that should never be `nil` is usually a sign of problems elsewhere in the code.*
 
-When you need to unwrap an optional into a non-constant, prefer `if var` and `guard var`.
+---
 
-**Preferred:**
+#####When you need to unwrap an optional into a non-constant, prefer `if var` and `guard var`.
+
+*Preferred:*
 
 ```swift
 if var volume = volume {
@@ -581,7 +616,7 @@ if var volume = volume {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if let volume = volume {
@@ -592,9 +627,11 @@ if let volume = volume {
 
 *Rationale: Using `if var` and `guard var` prevents muddying the current scope with unnecessary variable declarations.*
 
-When unwrapping multiple optionals at once, prefer not to repeat `let` or `var`.
+---
 
-**Preferred:**
+#####When unwrapping multiple optionals at once, prefer not to repeat `let` or `var`.
+
+*Preferred:*
 
 ```swift
 if let leftView = view.leftView, rightView = view.rightView {
@@ -602,7 +639,7 @@ if let leftView = view.leftView, rightView = view.rightView {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if let leftView = view.leftView, let rightView = view.rightView {
@@ -612,9 +649,11 @@ if let leftView = view.leftView, let rightView = view.rightView {
 
 *Rationale: The second `let` doesn't add any clarity and become very redundant when unwrapping several variables in the same clause.*
 
-When you need to unwrap a variable from a higher scope, prefer simply shadowing the variable name.
+---
 
-**Preferred:**
+#####When you need to unwrap a variable from a higher scope, prefer simply shadowing the variable name.
+
+*Preferred:*
 
 ```swift
 var imageURL: NSURL?
@@ -623,7 +662,7 @@ var imageURL: NSURL?
 guard let imageURL = imageURL else { /*...*/ }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 ```swift
 var imageURL: NSURL?
 
@@ -633,9 +672,11 @@ guard let unwrappedImageURL = imageURL else { /*...*/ }
 
 *Rationale: This prevents cluttering the current scope with more any more variables than we actually need, and makes the code slightly easier to read.*
 
-When unwrapping multiple variables, prefer the same `if let` or `guard let` clause.
+---
 
-**Preferred:**
+#####When unwrapping multiple variables, prefer the same `if let` or `guard let` clause.
+
+*Preferred:*
 
 ```swift
 if let person = people.first, profileImageURL = person.profileImageURL {
@@ -643,7 +684,7 @@ if let person = people.first, profileImageURL = person.profileImageURL {
 }
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 if let person = people.first {
@@ -655,18 +696,20 @@ if let person = people.first {
 
 *Rationale: This prevents unnecessary levels of nesting and helps avoid "arrow code".*
 
+---
+
 ### Struct Initializers
 
-Prefer native Swift initializers over the legacy C "make" functions.
+#####Prefer native Swift initializers over the legacy C "make" functions.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 let bounds = CGRect(x: 0, y: 0, width: 100, height: 80)
 let center = CGPoint(x: 50, y: 50)
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 let bounds = CGRectMake(0, 0, 100, 80)
@@ -675,17 +718,19 @@ let center = CGPointMake(50, 50)
 
 *Rationale: The named parameters of the Swift initializers make it clear which argument is which, making the code more readable.  This will also be consistent with how we initialize all of our other custom structs.*
 
+---
+
 ### Shorthand
 
-Prefer more concise type declarations.
+#####Prefer more concise type declarations.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 var people = [Person]()
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 var people: Array<Person> = Array<Person>()
@@ -693,11 +738,13 @@ var people: Array<Person> = Array<Person>()
 
 *Rationale: The more compact version is easier to read, and no information is lost.*
 
+---
+
 ### Typealiasing
 
-Use typealiases to make your code more clear.  This is especially true when dealing with units of measure.
+#####Use typealiases to make your code more clear.  This is especially true when dealing with units of measure.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 typealias Miles = Double
@@ -705,26 +752,24 @@ typealias Miles = Double
 func travel(distance: Miles) {}
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 ```swift
 func travel(distance: Double) {}
 ```
 
 *Rationale: Using typealiases makes our code self-documenting.  In the above example, without the `typealias`, it could be hard to figure out whether we're passing in the correct unit of measure, or whether we need to do a conversion before calling the method.  With the `typealias`, it is made clear that we must pass `distance` in as a measure of `Miles`.*
 
----
-
 ## Language
 
-Code should be written in US English.
+#####Code should be written in US English.
 
-**Preferred:**
+*Preferred:*
 
 ```swift
 var color: UIColor
 ```
 
-**Not Preferred:**
+*Not Preferred:*
 
 ```swift
 var colour: UIColor
@@ -732,13 +777,9 @@ var colour: UIColor
 
 *Rationale: For consistency with the existing frameworks we use in iOS development, we should use the American spellings.*
 
----
-
 ## Swiftlint
 
 Metova uses [swiftlint](https://github.com/realm/SwiftLint) to enforce as much of this style guide as possible across all Swift projects.  This repository also contains [the swiftlint configuration](.swiftlint.yml) file Metova uses for its projects.  
-
----
 
 ### Credits
 
