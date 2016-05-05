@@ -781,7 +781,7 @@ var colour: UIColor
 
 Metova uses [swiftlint](https://github.com/realm/SwiftLint) to enforce as much of this style guide as possible across all Swift projects.  This repository also contains [the swiftlint configuration](.swiftlint.yml) file Metova uses for its projects.  
 
-### Credits
+## Credits
 
 This style guide is a collaborative effort from members of the [Metova](https://metova.com) iOS team.
 
