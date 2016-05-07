@@ -12,7 +12,7 @@ This style guide is written primarily with the development of iOS and OS X appli
   * [Control Flow](#control-flow)
   * [Loops](#loops)
 * [Classes and Structures](#classes-and-structures)
-  * [Avoid Explicit Use of Self](#avoid-explicit-use-of-self)
+  * [Avoid Explicit Use of Self](#avoid-explicit-use-of-self-except-where-required)
 * [Closures](#closures)
 * [Types](#types)
   * [Constants](#constants)
