@@ -361,7 +361,7 @@ However, because structs are value types, there is a performance hit when passin
 
 However, we should be careful not to default to choosing classes for this reason alone.  The memory issues and potential for race conditions that we have to deal with and protect against with classes is arguably harder to debug and resolve.  And we shouldn't optimize for performance until performance has been measured and proven to be a problem.
 
-A good rule of thumb is to default to structs, but fallback onto classes when structs become too large or when you need a feature of classes that structs do not afford, such as multiple references to the same object.  And keep in mind with protocols & protocol extensions, we can deal with a lot of inheritance things even with structs.
+It is often best to fallback on structs except when when they don't provide the functionality you need (i.e. multiple references to the same object) due to their overall greater safety and efficiency, but it is also important to understand the use cases for both.  While structs and classes are overall very similar, structs are more-so designed to encapsulate a small amount of values while classes are well-suited to represent custom data sources and provide a link to external resources (such as files, services, etc.)  And keep in mind with protocols & protocol extensions, we can deal with a lot of inheritance semantics even with structs.
 
 ---
 
