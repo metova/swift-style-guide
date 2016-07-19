@@ -28,7 +28,7 @@ This style guide is written primarily with the development of iOS and OS X appli
 
 ### Whitespace
 
-Code should be intended four spaces per indentation level.  Do not insert tab characters.
+Code should be indented four spaces per indentation level.  Do not insert tab characters.
 
 Files should end with a new line.
 
