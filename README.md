@@ -119,12 +119,12 @@ if !shouldDoTheThing {
 
 ---
 
-#####Use `where` to eliminate layers of nesting.
+#####Use a comma to eliminate layers of nesting.
 
 *Preferred:*
 
 ```swift
-if let someInt = optionalInt where someInt % 2 == 0 {
+if let someInt = optionalInt , someInt % 2 == 0 {
     // someInt is even
 }
 ```
@@ -149,9 +149,9 @@ if let someInt = optionalInt {
 
 ```swift
 switch someValue {
-case .Foo:
+case .foo:
     doFooThing()
-case .Bar:
+case .bar:
     doBarThing()
 }
 ```
@@ -159,10 +159,10 @@ case .Bar:
 *Not Preferred:*
 
 ```swift
-if someValue == MyEnum.Foo {
+if someValue == MyEnum.foo {
     doFooThing()
 }
-else if someValue == MyEnum.Bar {
+else if someValue == MyEnum.bar {
     doBarThing()
 }
 ```
@@ -177,13 +177,13 @@ else if someValue == MyEnum.Bar {
 
 ```swift
 switch (someValue, direction) {
-case (.Foo, .Left):
+case (.foo, .left):
     doLeftThing()
-case (.Foo, .Right):
+case (.foo, .right):
     doRightThing()
-case (.Bar, .Left):
+case (.bar, .left):
     doBarThing()
-case (.Bar, .Right):
+case (.bar, .right):
     break       
 }
 ```
@@ -192,15 +192,15 @@ case (.Bar, .Right):
 
 ```swift
 switch someValue {
-case .Foo:
+case .foo:
     switch direction {
-    case .Left:
+    case .left:
         doLeftThing()
-    case .Right:
+    case .right:
         doRightThing()
     }
-case .Bar:
-    if direction == .Left {
+case .bar:
+    if direction == .left {
         doBarThing()
     }
 }
@@ -387,30 +387,6 @@ func setUpUI() {
 
 ---
 
-#####When possible, use the `@noescape` attribute.
-
-*Preferred:*
-
-```swift
-func runTheClosureTenTimes(@noescape closure:() -> Void) {
-    for _ in 0..<10 {
-        closure()
-    }
-}
-```
-
-*Not Preferred:*
-
-```swift
-func runTheClosureTenTimes(closure:() -> Void) {
-    for _ in 0..<10 {
-        closure()
-    }
-}
-```
-
-*Rationale: By using the `@noescape` attribute on closure arguments, you prevent explicit `self` from being required.*
-
 ## Closures
 
 #####When calling a method with a single closure as the last argument, leave it outside the parenthesis.
@@ -418,7 +394,7 @@ func runTheClosureTenTimes(closure:() -> Void) {
 *Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration) {
+UIView.animate(withDuration: animationDuration) {
     self.myView.alpha = 0
 }
 ```
@@ -426,8 +402,8 @@ UIView.animateWithDuration(animationDuration) {
 *Not Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration, {
-     self.myView.alpha = 0  
+UIView.animate(withDuration: animationDuration, animations: {
+    self.myView.alpha = 0
 })
 ```
 
@@ -440,7 +416,7 @@ UIView.animateWithDuration(animationDuration, {
 *Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration, animations: {
+UIView.animate(withDuration: animationDuration, animations: {
         self.myView.alpha = 0
     },
     completion: { _ in
@@ -452,7 +428,7 @@ UIView.animateWithDuration(animationDuration, animations: {
 *Not Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration, animations: {
+UIView.animate(withDuration: animationDuration, animations: {
         self.myView.alpha = 0
     }) { _ in
         self.myView.removeFromSuperview()
@@ -629,34 +605,12 @@ if let volume = volume {
 
 ---
 
-#####When unwrapping multiple optionals at once, prefer not to repeat `let` or `var`.
-
-*Preferred:*
-
-```swift
-if let leftView = view.leftView, rightView = view.rightView {
-    // use leftView & rightView
-}
-```
-
-*Not Preferred:*
-
-```swift
-if let leftView = view.leftView, let rightView = view.rightView {
-    // use leftView & rightView
-}
-```
-
-*Rationale: The second `let` doesn't add any clarity and become very redundant when unwrapping several variables in the same clause.*
-
----
-
 #####When you need to unwrap a variable from a higher scope, prefer simply shadowing the variable name.
 
 *Preferred:*
 
 ```swift
-var imageURL: NSURL?
+var imageURL: URL?
 
 // later...
 guard let imageURL = imageURL else { /*...*/ }
@@ -664,7 +618,7 @@ guard let imageURL = imageURL else { /*...*/ }
 
 *Not Preferred:*
 ```swift
-var imageURL: NSURL?
+var imageURL: URL?
 
 // later...
 guard let unwrappedImageURL = imageURL else { /*...*/ }
@@ -679,7 +633,7 @@ guard let unwrappedImageURL = imageURL else { /*...*/ }
 *Preferred:*
 
 ```swift
-if let person = people.first, profileImageURL = person.profileImageURL {
+if let person = people.first, let profileImageURL = person.profileImageURL {
     // do something with profileImageURL
 }
 ```
