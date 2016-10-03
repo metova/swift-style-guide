@@ -309,12 +309,12 @@ for index in first.stride(through: last, by: 1)
 
 ---
 
-#####Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerate()` method.
+#####Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerated()` method.
 
 *Preferred:*
 
 ```swift
-for (index, thing) in things.enumerate() {
+for (index, thing) in things.enumerated() {
     print("Found \(thing) at index \(index)")
 }
 ```
