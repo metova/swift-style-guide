@@ -119,30 +119,6 @@ if !shouldDoTheThing {
 
 ---
 
-#####Use a comma to eliminate layers of nesting.
-
-*Preferred:*
-
-```swift
-if let someInt = optionalInt , someInt % 2 == 0 {
-    // someInt is even
-}
-```
-
-*Not Preferred:*
-
-```swift
-if let someInt = optionalInt {
-    if someInt % 2 == 0 {
-        // someInt is even
-    }
-}
-```
-
-*Rationale: As levels of nesting increases, the readability of the code decreases.*
-
----
-
 #####Prefer using a `switch` statement over `else if` chains when dealing with enumerations.  
 
 *Preferred:*
@@ -371,7 +347,7 @@ It is often best to default to structs, only falling back to classes when you sp
 
 ```swift
 func setUpUI() {
-    view.backgroundColor = UIColor.blueColor()
+    view.backgroundColor = UIColor.blue()
 }
 ```
 
@@ -379,7 +355,7 @@ func setUpUI() {
 
 ```swift
 func setUpUI() {
-    self.view.backgroundColor = UIColor.blueColor()
+    self.view.backgroundColor = UIColor.blue()
 }
 ```
 
