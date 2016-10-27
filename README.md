@@ -8,7 +8,7 @@ This style guide is written primarily with the development of iOS and OS X appli
 
 * [General](#general)
   * [Whitespace](#whitespace)
-  * [Braces](#curly-braces)
+  * [Braces](#braces)
   * [Control Flow](#control-flow)
   * [Loops](#loops)
 * [Classes and Structures](#classes-and-structures)
@@ -119,39 +119,15 @@ if !shouldDoTheThing {
 
 ---
 
-#####Use `where` to eliminate layers of nesting.
-
-*Preferred:*
-
-```swift
-if let someInt = optionalInt where someInt % 2 == 0 {
-    // someInt is even
-}
-```
-
-*Not Preferred:*
-
-```swift
-if let someInt = optionalInt {
-    if someInt % 2 == 0 {
-        // someInt is even
-    }
-}
-```
-
-*Rationale: As levels of nesting increases, the readability of the code decreases.*
-
----
-
 #####Prefer using a `switch` statement over `else if` chains when dealing with enumerations.  
 
 *Preferred:*
 
 ```swift
 switch someValue {
-case .Foo:
+case .foo:
     doFooThing()
-case .Bar:
+case .bar:
     doBarThing()
 }
 ```
@@ -159,10 +135,10 @@ case .Bar:
 *Not Preferred:*
 
 ```swift
-if someValue == MyEnum.Foo {
+if someValue == MyEnum.foo {
     doFooThing()
 }
-else if someValue == MyEnum.Bar {
+else if someValue == MyEnum.bar {
     doBarThing()
 }
 ```
@@ -177,13 +153,13 @@ else if someValue == MyEnum.Bar {
 
 ```swift
 switch (someValue, direction) {
-case (.Foo, .Left):
+case (.foo, .left):
     doLeftThing()
-case (.Foo, .Right):
+case (.foo, .right):
     doRightThing()
-case (.Bar, .Left):
+case (.bar, .left):
     doBarThing()
-case (.Bar, .Right):
+case (.bar, .right):
     break       
 }
 ```
@@ -192,15 +168,15 @@ case (.Bar, .Right):
 
 ```swift
 switch someValue {
-case .Foo:
+case .foo:
     switch direction {
-    case .Left:
+    case .left:
         doLeftThing()
-    case .Right:
+    case .right:
         doRightThing()
     }
-case .Bar:
-    if direction == .Left {
+case .bar:
+    if direction == .left {
         doBarThing()
     }
 }
@@ -333,12 +309,12 @@ for index in first.stride(through: last, by: 1)
 
 ---
 
-#####Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerate()` method.
+#####Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerated()` method.
 
 *Preferred:*
 
 ```swift
-for (index, thing) in things.enumerate() {
+for (index, thing) in things.enumerated() {
     print("Found \(thing) at index \(index)")
 }
 ```
@@ -371,7 +347,7 @@ It is often best to default to structs, only falling back to classes when you sp
 
 ```swift
 func setUpUI() {
-    view.backgroundColor = UIColor.blueColor()
+    view.backgroundColor = UIColor.blue()
 }
 ```
 
@@ -379,37 +355,13 @@ func setUpUI() {
 
 ```swift
 func setUpUI() {
-    self.view.backgroundColor = UIColor.blueColor()
+    self.view.backgroundColor = UIColor.blue()
 }
 ```
 
 *Rationale: Omitting `self` allows for more concise code.  Only use it when a local variable has hidden an instance variable or in escaping closures.*
 
 ---
-
-#####When possible, use the `@noescape` attribute.
-
-*Preferred:*
-
-```swift
-func runTheClosureTenTimes(@noescape closure:() -> Void) {
-    for _ in 0..<10 {
-        closure()
-    }
-}
-```
-
-*Not Preferred:*
-
-```swift
-func runTheClosureTenTimes(closure:() -> Void) {
-    for _ in 0..<10 {
-        closure()
-    }
-}
-```
-
-*Rationale: By using the `@noescape` attribute on closure arguments, you prevent explicit `self` from being required.*
 
 ## Closures
 
@@ -418,7 +370,7 @@ func runTheClosureTenTimes(closure:() -> Void) {
 *Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration) {
+UIView.animate(withDuration: animationDuration) {
     self.myView.alpha = 0
 }
 ```
@@ -426,8 +378,8 @@ UIView.animateWithDuration(animationDuration) {
 *Not Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration, {
-     self.myView.alpha = 0  
+UIView.animate(withDuration: animationDuration, animations: {
+    self.myView.alpha = 0
 })
 ```
 
@@ -440,7 +392,7 @@ UIView.animateWithDuration(animationDuration, {
 *Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration, animations: {
+UIView.animate(withDuration: animationDuration, animations: {
         self.myView.alpha = 0
     },
     completion: { _ in
@@ -452,7 +404,7 @@ UIView.animateWithDuration(animationDuration, animations: {
 *Not Preferred:*
 
 ```swift
-UIView.animateWithDuration(animationDuration, animations: {
+UIView.animate(withDuration: animationDuration, animations: {
         self.myView.alpha = 0
     }) { _ in
         self.myView.removeFromSuperview()
@@ -629,34 +581,12 @@ if let volume = volume {
 
 ---
 
-#####When unwrapping multiple optionals at once, prefer not to repeat `let` or `var`.
-
-*Preferred:*
-
-```swift
-if let leftView = view.leftView, rightView = view.rightView {
-    // use leftView & rightView
-}
-```
-
-*Not Preferred:*
-
-```swift
-if let leftView = view.leftView, let rightView = view.rightView {
-    // use leftView & rightView
-}
-```
-
-*Rationale: The second `let` doesn't add any clarity and become very redundant when unwrapping several variables in the same clause.*
-
----
-
 #####When you need to unwrap a variable from a higher scope, prefer simply shadowing the variable name.
 
 *Preferred:*
 
 ```swift
-var imageURL: NSURL?
+var imageURL: URL?
 
 // later...
 guard let imageURL = imageURL else { /*...*/ }
@@ -664,7 +594,7 @@ guard let imageURL = imageURL else { /*...*/ }
 
 *Not Preferred:*
 ```swift
-var imageURL: NSURL?
+var imageURL: URL?
 
 // later...
 guard let unwrappedImageURL = imageURL else { /*...*/ }
@@ -679,7 +609,7 @@ guard let unwrappedImageURL = imageURL else { /*...*/ }
 *Preferred:*
 
 ```swift
-if let person = people.first, profileImageURL = person.profileImageURL {
+if let person = people.first, let profileImageURL = person.profileImageURL {
     // do something with profileImageURL
 }
 ```
