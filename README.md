@@ -40,7 +40,7 @@ The closing brace for `guard` statements should be followed by an empty line.
 
 ### Braces
 
-#####Opening braces should be placed on the same line as the declaration they are encapsulating.
+##### Opening braces should be placed on the same line as the declaration they are encapsulating.
 
 *Preferred*
 ```swift 
