@@ -65,7 +65,7 @@ Closing braces should always be on a new line by themselves, horizontally aligne
 
 ### Control Flow
 
-#####Omit unnecessary parenthesis around control flow statements.
+##### Omit unnecessary parenthesis around control flow statements.
 
 *Preferred:*
 
@@ -87,7 +87,7 @@ while (someCondition) {
 
 ---
 
-#####Prefer to `return` and `break` early.   
+##### Prefer to `return` and `break` early.   
 
 *Preferred:*
 
@@ -114,7 +114,7 @@ else {
 
 ---
 
-#####When using an early `return` or `break`, prefer `guard` to `if` statements.
+##### When using an early `return` or `break`, prefer `guard` to `if` statements.
 
 *Preferred:*
 
@@ -136,7 +136,7 @@ if !shouldDoTheThing {
 
 ---
 
-#####Prefer using a `switch` statement over `else if` chains when dealing with enumerations.  
+##### Prefer using a `switch` statement over `else if` chains when dealing with enumerations.  
 
 *Preferred:*
 
@@ -164,7 +164,7 @@ else if someValue == MyEnum.bar {
 
 ---
 
-#####Prefer switching on tuples than unnecessary levels of nesting.
+##### Prefer switching on tuples than unnecessary levels of nesting.
 
 *Preferred:*
 
@@ -203,7 +203,7 @@ case .bar:
 
 ---
 
-#####Prefer starting `else` and `catch`  statements on a new line, under the closing brace for the previous statement.
+##### Prefer starting `else` and `catch`  statements on a new line, under the closing brace for the previous statement.
 
 *Preferred:*
 
@@ -236,7 +236,7 @@ do {
 
 ### Loops
 
-#####Prefer `for`-`in` loops to `forEach` in most circumstances.
+##### Prefer `for`-`in` loops to `forEach` in most circumstances.
 
 *Preferred:*
 
@@ -258,7 +258,7 @@ things.forEach { thing in
 
 ---
 
-#####When dealing with optional collections, prefer `forEach` to unwrapping.
+##### When dealing with optional collections, prefer `forEach` to unwrapping.
 
 *Preferred:*
 
@@ -282,7 +282,7 @@ if let things = things {
 
 ---
 
-#####When the loop body is nothing but passing each item in the loop into a closure, function, or method, prefer `forEach`.
+##### When the loop body is nothing but passing each item in the loop into a closure, function, or method, prefer `forEach`.
 
 *Preferred:*
 
@@ -301,7 +301,7 @@ for thing in things {
 
 ---
 
-#####Prefer iterating over an array slice to any other sort of logic to deal with a specific section of an array.
+##### Prefer iterating over an array slice to any other sort of logic to deal with a specific section of an array.
 
 *Preferred:*
 
@@ -326,7 +326,7 @@ for index in first.stride(through: last, by: 1)
 
 ---
 
-#####Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerated()` method.
+##### Prefer not to pull items out of an array index within a loop.  If the `index` is needed, use the `enumerated()` method.
 
 *Preferred:*
 
@@ -358,7 +358,7 @@ It is often best to default to structs, only falling back to classes when you sp
 
 ---
 
-#####Avoid explicit use of `self` except where required.
+##### Avoid explicit use of `self` except where required.
 
 *Preferred:*
 
@@ -382,7 +382,7 @@ func setUpUI() {
 
 ## Closures
 
-#####When calling a method with a single closure as the last argument, leave it outside the parenthesis.
+##### When calling a method with a single closure as the last argument, leave it outside the parenthesis.
 
 *Preferred:*
 
@@ -404,7 +404,7 @@ UIView.animate(withDuration: animationDuration, animations: {
 
 ---
 
-#####When calling a method with multiple closure arguments, include all of the closures within the parenthesis.
+##### When calling a method with multiple closure arguments, include all of the closures within the parenthesis.
 
 *Preferred:*
 
@@ -432,7 +432,7 @@ UIView.animate(withDuration: animationDuration, animations: {
 
 ---
 
-#####For single expression arguments, use implicit returns if the context is clear.
+##### For single expression arguments, use implicit returns if the context is clear.
 
 *Preferred:*
 
@@ -452,7 +452,7 @@ let filteredRestaurants = restaurants.filter { restaurant in
 
 ## Types
 
-#####Let Swift implicitly decide which type to use except when you require a type different from Swift's default inference.
+##### Let Swift implicitly decide which type to use except when you require a type different from Swift's default inference.
 
 *Preferred:*
 
@@ -474,7 +474,7 @@ let name: String = person.name
 
 ---
 
-#####Prefer Swift native types to Objective-C's types.
+##### Prefer Swift native types to Objective-C's types.
 
 *Preferred:*
 
@@ -494,7 +494,7 @@ var people = NSMutableArray()
 
 ### Constants
 
-#####Prefer constants to variables.  Use `let` as your default declaration keyword, and only change to `var` when you know the value of a variable will change.
+##### Prefer constants to variables.  Use `let` as your default declaration keyword, and only change to `var` when you know the value of a variable will change.
 
 *Preferred:*
 
@@ -514,7 +514,7 @@ var minimumPasswordLength: Int
 
 ### Optionals
 
-#####Avoid implicitly unwrapped optionals.
+##### Avoid implicitly unwrapped optionals.
 
 *Preferred:*
 
@@ -532,7 +532,7 @@ var profilePicture: UIImage!
 
 ---
 
-#####Do not force unwrap optionals.  If crashing *is* the correct behavior when the optional is `nil`, prefer a `fatalError` with a message.
+##### Do not force unwrap optionals.  If crashing *is* the correct behavior when the optional is `nil`, prefer a `fatalError` with a message.
 
 *Preferred:*
 
@@ -552,7 +552,7 @@ let unwrapped = someOptional!
 
 ---
 
-#####If a value should never be `nil`, prefer a non-optional.
+##### If a value should never be `nil`, prefer a non-optional.
 
 *Preferred:*
 
@@ -575,7 +575,7 @@ class Person {
 
 ---
 
-#####When you need to unwrap an optional into a non-constant, prefer `if var` and `guard var`.
+##### When you need to unwrap an optional into a non-constant, prefer `if var` and `guard var`.
 
 *Preferred:*
 
@@ -598,7 +598,7 @@ if let volume = volume {
 
 ---
 
-#####When you need to unwrap a variable from a higher scope, prefer simply shadowing the variable name.
+##### When you need to unwrap a variable from a higher scope, prefer simply shadowing the variable name.
 
 *Preferred:*
 
@@ -621,7 +621,7 @@ guard let unwrappedImageURL = imageURL else { /*...*/ }
 
 ---
 
-#####When unwrapping multiple variables, prefer the same `if let` or `guard let` clause.
+##### When unwrapping multiple variables, prefer the same `if let` or `guard let` clause.
 
 *Preferred:*
 
@@ -647,7 +647,7 @@ if let person = people.first {
 
 ### Struct Initializers
 
-#####Prefer native Swift initializers over the legacy C "make" functions.
+##### Prefer native Swift initializers over the legacy C "make" functions.
 
 *Preferred:*
 
@@ -669,7 +669,7 @@ let center = CGPointMake(50, 50)
 
 ### Shorthand
 
-#####Prefer more concise type declarations.
+##### Prefer more concise type declarations.
 
 *Preferred:*
 
@@ -689,7 +689,7 @@ var people: Array<Person> = Array<Person>()
 
 ### Typealiasing
 
-#####Use typealiases to make your code more clear.  This is especially true when dealing with units of measure.
+##### Use typealiases to make your code more clear.  This is especially true when dealing with units of measure.
 
 *Preferred:*
 
@@ -708,7 +708,7 @@ func travel(distance: Double) {}
 
 ## Language
 
-#####Code should be written in US English.
+##### Code should be written in US English.
 
 *Preferred:*
 
