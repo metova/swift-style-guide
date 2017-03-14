@@ -40,9 +40,24 @@ The closing brace for `guard` statements should be followed by an empty line.
 
 ### Braces
 
-Opening braces should be placed consistently throughout the code base.  Some developers prefer their braces on the same line while others prefer new line braces.  What's important is that the entire code base is consistent.
+Opening braces should be placed on the same line as the declaration they are encapsulating. Closing braces should always be on a new line by themselves, horizontally aligned with the left edge of the opening brace it is closing.
 
-Closing braces should always be on a new line by themselves, horizontally aligned with the left edge of the opening brace it is closing.
+*Preferred*
+```swift 
+if someThing {
+	// execute some code
+}
+```
+
+*Not Preferred*
+```swift
+if someThing 
+{
+	// execute some code 
+}
+```
+
+*Rationale: Apple uses same line brackets in their code and it Xcode autocomplete encourages it as well.*
 
 ---
 
@@ -280,7 +295,7 @@ for thing in things {
 }
 ```
 
-*Rationale: This is more compact, and passing closure arguments into to methods that expect closures should feel perfectly natural in Swift.*
+*Rationale: This is more compact, and passing closure arguments into methods that expect closures should feel perfectly natural in Swift.*
 
 ---
 
