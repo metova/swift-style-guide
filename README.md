@@ -57,7 +57,7 @@ if someThing
 }
 ```
 
-*Rationale: Apple uses same line brackets in their code and it Xcode autocomplete encourages it as well.*
+*Rationale: Apple uses same line brackets in their code and Xcode autocomplete encourages it as well.*
 
 ---
 
