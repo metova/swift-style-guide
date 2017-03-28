@@ -67,6 +67,8 @@ myMethod() {
 }
 ```
 
+*Rationale: This improves readability by separating the function definition from the function signature or control statement.*
+
 ---
 
 ### Braces
