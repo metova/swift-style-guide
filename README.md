@@ -70,7 +70,24 @@ myMethod() {
 *Rationale: This improves readability by separating the function definition from the function signature or control statement.*
 
 ---
+### Property Declarations
 
+##### Colon should have space after it, but not in front of it.
+
+*Preferred*
+```swift
+var myProperty: MyType
+```
+
+*Not Preferred*
+```swift
+var myProperty :MyType
+var mySecondProperty : MyType
+```
+
+*Rationale: Apple uses this form in their code. For consistency, iOS developers should do the same.*
+
+---
 ### Braces
 
 ##### Opening braces should be placed on the same line as the declaration they are encapsulating.
