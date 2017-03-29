@@ -8,11 +8,13 @@ This style guide is written primarily with the development of iOS and OS X appli
 
 * [General](#general)
   * [Whitespace](#whitespace)
+  * [Property Declarations](#property-declarations)
   * [Braces](#braces)
   * [Control Flow](#control-flow)
   * [Loops](#loops)
 * [Classes and Structures](#classes-and-structures)
   * [Avoid Explicit Use of Self](#avoid-explicit-use-of-self-except-where-required)
+  * [Use Dot Syntax On Enums And Static Vars](#use-dot-syntax-on-enums-and-static-vars-where-type-can-be-inferred)
 * [Closures](#closures)
 * [Types](#types)
   * [Constants](#constants)
@@ -38,22 +40,72 @@ The closing brace for `guard` statements should be followed by an empty line.
 
 ---
 
+##### An empty line should follow an opening brace or start of a closure
+
+*Preferred*
+```swift
+override func viewDidLoad() {
+
+    // some code here. Notice the empty line above this one.
+}
+
+// a method with a closure parameter
+myMethod() {
+
+    // some code here. Notice the empty line above this one.
+}
+```
+
+*Not Preferred*
+```swift
+override func viewDidLoad() {
+    //some code here
+}
+
+// a method with a closure parameter
+myMethod() {
+    // some code here.
+}
+```
+
+*Rationale: This improves readability by separating the function definition from the function signature or control statement.*
+
+---
+### Property Declarations
+
+##### Colon should have space after it but not in front of it.
+
+*Preferred*
+```swift
+var myProperty: MyType
+```
+
+*Not Preferred*
+```swift
+var myProperty :MyType
+var mySecondProperty : MyType
+```
+
+*Rationale: Apple uses this form in their code. For consistency, iOS developers should do the same.*
+
+---
 ### Braces
 
 ##### Opening braces should be placed on the same line as the declaration they are encapsulating.
 
 *Preferred*
-```swift 
+```swift
 if someThing {
+
 	// execute some code
 }
 ```
 
 *Not Preferred*
 ```swift
-if someThing 
+if someThing
 {
-	// execute some code 
+	// execute some code
 }
 ```
 
@@ -71,6 +123,7 @@ Closing braces should always be on a new line by themselves, horizontally aligne
 
 ```swift
 while someCondition {
+
     // execute some code
 }
 ```
@@ -79,6 +132,7 @@ while someCondition {
 
 ```swift
 while (someCondition) {
+
     // execute some code
 }
 ```
@@ -93,6 +147,7 @@ while (someCondition) {
 
 ```swift
 guard shouldDoTheThing else {
+
     return
 }
 
@@ -103,9 +158,11 @@ guard shouldDoTheThing else {
 
 ```swift
 if shouldDoTheThing {
+
     // Do the thing.  
 }
 else {
+
     return
 }
 ```
@@ -120,6 +177,7 @@ else {
 
 ```swift
 guard shouldDoTheThing else {
+
     return
 }
 ```
@@ -128,6 +186,7 @@ guard shouldDoTheThing else {
 
 ```swift
 if !shouldDoTheThing {
+
     return  
 }
 ```
@@ -142,6 +201,7 @@ if !shouldDoTheThing {
 
 ```swift
 switch someValue {
+
 case .foo:
     doFooThing()
 case .bar:
@@ -153,9 +213,11 @@ case .bar:
 
 ```swift
 if someValue == MyEnum.foo {
+
     doFooThing()
 }
 else if someValue == MyEnum.bar {
+
     doBarThing()
 }
 ```
@@ -170,6 +232,7 @@ else if someValue == MyEnum.bar {
 
 ```swift
 switch (someValue, direction) {
+
 case (.foo, .left):
     doLeftThing()
 case (.foo, .right):
@@ -185,8 +248,10 @@ case (.bar, .right):
 
 ```swift
 switch someValue {
+
 case .foo:
     switch direction {
+
     case .left:
         doLeftThing()
     case .right:
@@ -194,6 +259,7 @@ case .foo:
     }
 case .bar:
     if direction == .left {
+
         doBarThing()
     }
 }
@@ -209,9 +275,11 @@ case .bar:
 
 ```swift
 do {
+
     try doTheThing()
 }
 catch let error {
+
     handle(error)
 }
 ```
@@ -220,8 +288,10 @@ catch let error {
 
 ```swift
 do {
+
     try doTheThing()
 } catch let error {
+
     handle(error)
 }
 ```
@@ -242,6 +312,7 @@ do {
 
 ```swift
 for thing in things {
+
     thing.doTheThing()
 }
 ```
@@ -250,6 +321,7 @@ for thing in things {
 
 ```swift
 things.forEach { thing in
+
     thing.doTheThing()
 }
 ```
@@ -264,6 +336,7 @@ things.forEach { thing in
 
 ```swift
 things?.forEach {
+
     thing.doTheThing()
 }
 ```
@@ -272,7 +345,9 @@ things?.forEach {
 
 ```swift
 if let things = things {
+
     for thing in things {
+
         thing.doTheThing()
     }
 }
@@ -293,6 +368,7 @@ things.forEach(handleTheThing)
 
 ```swift
 for thing in things {
+
     handleTheThing(thing)
 }
 ```
@@ -307,6 +383,7 @@ for thing in things {
 
 ```swift
 for thing in things[first...last] {
+
     thing.doTheThing()
     handleTheThing(thing)
 }
@@ -316,6 +393,7 @@ for thing in things[first...last] {
 
 ```swift
 for index in first.stride(through: last, by: 1)
+
     let thing = things[index]
     thing.doTheThing()
     handleTheThing(thing)
@@ -332,6 +410,7 @@ for index in first.stride(through: last, by: 1)
 
 ```swift
 for (index, thing) in things.enumerated() {
+
     print("Found \(thing) at index \(index)")
 }
 ```
@@ -340,6 +419,7 @@ for (index, thing) in things.enumerated() {
 
 ```swift
 for index in 0..<things.count {
+
     print("Found \(things[index]) at index \(index)")
 }
 ```
@@ -364,7 +444,8 @@ It is often best to default to structs, only falling back to classes when you sp
 
 ```swift
 func setUpUI() {
-    view.backgroundColor = UIColor.blue()
+
+    view.backgroundColor = .blue
 }
 ```
 
@@ -372,11 +453,38 @@ func setUpUI() {
 
 ```swift
 func setUpUI() {
-    self.view.backgroundColor = UIColor.blue()
+
+    self.view.backgroundColor = .blue
 }
 ```
 
 *Rationale: Omitting `self` allows for more concise code.  Only use it when a local variable has hidden an instance variable or in escaping closures.*
+
+---
+
+##### Use dot syntax on enums and static vars where type can be inferred.
+
+*Preferred:*
+
+```swift
+override func viewDidLoad() {
+
+    view.backgroundColor = .blue
+    var myEnum: MyEnum = .enumCase
+}
+```
+
+*Not Preferred:*
+
+```swift
+override func viewDidLoad() {
+
+    view.backgroundColor = UIColor.blue
+    var myEnum = MyEnum.enumCase
+}
+```
+
+*Rationale: Using dot syntax in this way makes the code cleaner and easier to read.*
 
 ---
 
@@ -388,6 +496,7 @@ func setUpUI() {
 
 ```swift
 UIView.animate(withDuration: animationDuration) {
+
     self.myView.alpha = 0
 }
 ```
@@ -396,6 +505,7 @@ UIView.animate(withDuration: animationDuration) {
 
 ```swift
 UIView.animate(withDuration: animationDuration, animations: {
+
     self.myView.alpha = 0
 })
 ```
@@ -410,9 +520,11 @@ UIView.animate(withDuration: animationDuration, animations: {
 
 ```swift
 UIView.animate(withDuration: animationDuration, animations: {
+
         self.myView.alpha = 0
     },
     completion: { _ in
+
         self.myView.removeFromSuperview()
     }
 )
@@ -422,8 +534,10 @@ UIView.animate(withDuration: animationDuration, animations: {
 
 ```swift
 UIView.animate(withDuration: animationDuration, animations: {
+
         self.myView.alpha = 0
     }) { _ in
+
         self.myView.removeFromSuperview()
 }
 ```
@@ -444,6 +558,7 @@ let filteredRestaurants = restaurants.filter { $0.id == searchID }
 
 ```swift
 let filteredRestaurants = restaurants.filter { restaurant in
+
     return restaurant.id == searchID
 }
 ```
@@ -538,6 +653,7 @@ var profilePicture: UIImage!
 
 ```swift
 guard let unwrapped = someOptional else {
+
     fatalError("Some helpful debugging message describing the circumstance.")
 }
 ```
@@ -558,6 +674,7 @@ let unwrapped = someOptional!
 
 ```swift
 class Person {
+
     let name: String
 }
 ```
@@ -566,6 +683,7 @@ class Person {
 
 ```swift
 class Person {
+
     // name should never be nil
     var name: String?
 }
@@ -581,6 +699,7 @@ class Person {
 
 ```swift
 if var volume = volume {
+
     // use mutable volume
 }
 ```
@@ -589,6 +708,7 @@ if var volume = volume {
 
 ```swift
 if let volume = volume {
+
     var vol = volume
     // use mutable vol
 }
@@ -627,6 +747,7 @@ guard let unwrappedImageURL = imageURL else { /*...*/ }
 
 ```swift
 if let person = people.first, let profileImageURL = person.profileImageURL {
+
     // do something with profileImageURL
 }
 ```
@@ -635,7 +756,9 @@ if let person = people.first, let profileImageURL = person.profileImageURL {
 
 ```swift
 if let person = people.first {
+
     if let profileImageURL = person.profileImageURL {
+
         // do something with profileImageURL
     }
 }
