@@ -72,7 +72,7 @@ myMethod() {
 ---
 ### Property Declarations
 
-##### Colon should have space after it, but not in front of it.
+##### Colon should have space after it but not in front of it.
 
 *Preferred*
 ```swift
