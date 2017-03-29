@@ -8,8 +8,8 @@ This style guide is written primarily with the development of iOS and OS X appli
 
 * [General](#general)
   * [Whitespace](#whitespace)
-  * [Braces](#braces)
   * [Property Declarations](#property-declarations)
+  * [Braces](#braces)
   * [Control Flow](#control-flow)
   * [Loops](#loops)
 * [Classes and Structures](#classes-and-structures)
