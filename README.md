@@ -17,6 +17,7 @@ This style guide is written primarily with the development of iOS and OS X appli
 * [Types](#types)
   * [Constants](#constants)
   * [Optionals](#optionals)
+  * [Type Casting](#type-casting)
   * [Struct Initializers](#struct-initializers)
   * [Shorthand](#shorthand)
   * [Typealiasing](#typealiasing)
@@ -642,6 +643,28 @@ if let person = people.first {
 ```
 
 *Rationale: This prevents unnecessary levels of nesting and helps avoid "arrow code".*
+
+---
+
+### Type Casting
+
+##### Do not force cast. If crashing *is* the correct behavior when a type cast fails, prefer a `fatalError` with a message.
+
+*Preferred:*
+
+```swift
+guard let firstName = json["first_name"] as? String else {
+    fatalError("Some helpful debugging message describing the circumstance.")
+}
+```
+
+*Not Preferred:*
+
+```swift
+let firstName = json["first_name"] as! String
+```
+
+*Rationale: An extra line of code here can save plenty of headaches when debugging.*
 
 ---
 
