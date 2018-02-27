@@ -45,16 +45,16 @@ The closing brace for `guard` statements should be followed by an empty line.
 
 *Preferred*
 ```swift 
-if someThing {
-	// execute some code
+if someCondition {
+    // execute some code
 }
 ```
 
 *Not Preferred*
 ```swift
-if someThing 
+if someCondition 
 {
-	// execute some code 
+    // execute some code 
 }
 ```
 
